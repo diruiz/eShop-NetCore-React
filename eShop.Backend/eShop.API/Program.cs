@@ -1,7 +1,5 @@
 using eShop.Application;
 using eShop.Domain;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -16,7 +14,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 // Add services to the container.
 
-builder.Services.AddDomainDependencyInjectionServices(builder.Configuration);
+builder.Services.AddDomainDependencyInjectionServices(configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatrEntryPoint).Assembly)); 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
