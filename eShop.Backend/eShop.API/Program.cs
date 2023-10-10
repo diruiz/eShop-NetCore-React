@@ -1,7 +1,23 @@
+using eShop.Application;
+using eShop.Domain;
+using Microsoft.AspNetCore.Hosting;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    googleOptions.CallbackPath = "/api/sessions/oauth/google";
+    
+});
 
 // Add services to the container.
 
+builder.Services.AddDomainDependencyInjectionServices(builder.Configuration);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatrEntryPoint).Assembly)); 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
