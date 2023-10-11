@@ -10,9 +10,7 @@ namespace eShop.Application.Commands.Handler
         public CreateUserCommandHandler(IUserService userService)
         {
             _userService = userService;
-        }
-
-        
+        }        
 
         public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {

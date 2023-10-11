@@ -15,20 +15,28 @@ namespace eShop.Domain
     {
         public static IServiceCollection AddDomainDependencyInjectionServices(this IServiceCollection services, IConfiguration configuration)
         {
+            #region Contexts
             services.AddDbContext<EShopDBContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("StoreConnection"));
             });
+            #endregion
 
-            #region Repositories
+            #region UnitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             #endregion
 
-            #region Services
+            #region Repositories
+            services.AddScoped<ICatalogRepository, CatalogRepository>();
+            services.AddScoped<ICatalogBrandRepository, CatalogBrandRepository>();
+            services.AddScoped<ICatalogTypeRepository, CatalogTypeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             #endregion
 
+            #region Services
+            services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<IUserService, UserService>();
+            #endregion
 
             return services;
         }

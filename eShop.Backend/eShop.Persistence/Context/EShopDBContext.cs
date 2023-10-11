@@ -15,14 +15,19 @@ public partial class EShopDBContext : DbContext
     {
     }
 
-    public virtual DbSet<Basket> Baskets { get; set; }
+    public virtual DbSet<Catalog> Catalogs { get; set; }
+
+    public virtual DbSet<CatalogBrand> CatalogBrands { get; set; }
+
+    public virtual DbSet<CatalogType> CatalogTypes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        new BasketMapping().Configure(modelBuilder.Entity<Basket>());
-
+        new CatalogMapping().Configure(modelBuilder.Entity<Catalog>());
+        new CatalogBrandMapping().Configure(modelBuilder.Entity<CatalogBrand>());
+        new CatalogTypeMapping().Configure(modelBuilder.Entity<CatalogType>());
         new UserMapping().Configure(modelBuilder.Entity<User>());
 
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,15 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Validations\" />
     <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\eShop.Domain\eShop.Domain.csproj" />
+    <ProjectReference Include="..\eShop.Models\eShop.Models.csproj" />
   </ItemGroup>
 
 </Project>
