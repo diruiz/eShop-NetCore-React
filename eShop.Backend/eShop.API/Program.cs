@@ -18,12 +18,11 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 // Add services to the container.
 
-
 builder.Services.AddControllers();
 builder.Services.AddDomainDependencyInjectionServices(configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly));
 builder.Services.AddAutoMapper(typeof(ApplicationLayerEntryPoint).Assembly);
-builder.Services.AddValidatorsFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly);
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,6 +1,9 @@
 ﻿using eShop.Application.Commands;
+using eShop.Application.Queries;
+using eShop.Models.eShopDbModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Channels;
 
 
 namespace eShop.API.Controllers;
@@ -16,21 +19,26 @@ public class CatalogController : ControllerBase
     }
     // GET: api/<CatalogController>
     [HttpGet]
-    public IEnumerable<string> Get()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Catalog>))]
+    public async Task<ActionResult> Get(CancellationToken cancel = default)
     {
-        return new string[] { "value1", "value2" };
+        var query = new GetAllCatalogQuery();
+        return Ok(await _mediator.Send(query, cancel));
     }
 
     // GET api/<CatalogController>/5
     [HttpGet("{id}")]
-    public string Get(int id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Catalog))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> Get(int id, CancellationToken cancel = default)
     {
-        return "value";
+        var query = new GetCatalogByIdQuery(){ Id = id };
+        return Ok(await _mediator.Send(query, cancel));
     }
 
     // POST api/<CatalogController>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Catalog))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post(CreateCatalogCommand catalog, CancellationToken cancel = default)
     {
@@ -39,8 +47,21 @@ public class CatalogController : ControllerBase
 
     // PUT api/<CatalogController>/5
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<ActionResult> Put(int id, [FromBody] UpdateCatalogCommand catalog)
     {
+        var updated = await _mediator.Send(catalog);
+
+        if (updated)
+        {
+            return Ok();
+        }
+        else 
+        {
+            return Conflict();
+        }
     }
 
     // DELETE api/<CatalogController>/5

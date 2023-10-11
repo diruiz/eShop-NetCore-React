@@ -3,7 +3,7 @@ using eShop.Domain.Services.Interfaces;
 using eShop.Models.eShopDbModels;
 using MediatR;
 
-namespace eShop.Application.Commands.Handler;
+namespace eShop.Application.Commands.Handlers;
 
 public sealed class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand, Catalog>
 {

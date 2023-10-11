@@ -47,8 +47,13 @@ public class CatalogService : ICatalogService
             var dbCatalog = await _unitOfWork.Catalog.GetById(catalog.Id);
             if (dbCatalog != null)
             {
+                dbCatalog.CatalogBrandId = catalog.CatalogBrandId;
+                dbCatalog.CatalogTypeId = catalog.CatalogTypeId;
                 dbCatalog.Name = catalog.Name;
-
+                dbCatalog.Description = catalog.Description;
+                dbCatalog.Price = catalog.Price;
+                dbCatalog.AvailableStock = catalog.AvailableStock;
+                dbCatalog.PictureFileName = catalog.PictureFileName;
                 _unitOfWork.Catalog.Update(dbCatalog);
 
                 var result = _unitOfWork.Save();
