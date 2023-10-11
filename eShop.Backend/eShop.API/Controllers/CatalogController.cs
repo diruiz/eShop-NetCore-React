@@ -47,8 +47,8 @@ public class CatalogController : ControllerBase
     /// Creates a catalog item.
     /// </summary>
     /// <param name="catalog"></param>
-    /// <returns>A newly created catalog item</returns>
-    /// <response code="201">Returns the newly created item</response>
+    /// <returns>Ok Response</returns>
+    /// <response code="200">Success</response>
     /// <response code="400">If the request is not correct</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Catalog))]
@@ -89,10 +89,13 @@ public class CatalogController : ControllerBase
     /// </summary>
     /// <param name="id">Id</param>
     /// <returns>A newly created catalog item</returns>
-    /// <response code="201">Returns the newly created item</response>
-    /// <response code="400">If the request is not correct</response>
+    /// <response code="200">Success</response>
+    /// <response code="404">If the item is not found</response>
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
+        var command = new DeleteCatalogCommand(id);
+        var deleted = await _mediator.Send(command);
+        return deleted ? Ok() : NotFound();
     }
 }
