@@ -1,5 +1,7 @@
 using eShop.Application;
 using eShop.Domain;
+using FluentValidation;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +18,13 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 // Add services to the container.
 
-builder.Services.AddDomainDependencyInjectionServices(configuration);
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MediatrEntryPoint).Assembly));
-builder.Services.AddAutoMapper(typeof(MediatrEntryPoint).Assembly);
+
 builder.Services.AddControllers();
+builder.Services.AddDomainDependencyInjectionServices(configuration);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly));
+builder.Services.AddAutoMapper(typeof(ApplicationLayerEntryPoint).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
