@@ -15,8 +15,13 @@ public class CatalogController : ControllerBase
     {
         _mediator = mediator;            
     }
-    // GET: api/<CatalogController>
-    [HttpGet(Name = "Get all the catalog")]
+
+    /// <summary>
+    /// Gets all the catalog.
+    /// </summary>    
+    /// <returns>Returns all the catalog</returns>
+    /// <response code="200">Success</response>    
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Catalog>))]
     public async Task<ActionResult> Get(CancellationToken cancel = default)
     {
@@ -24,8 +29,12 @@ public class CatalogController : ControllerBase
         return Ok(await _mediator.Send(query, cancel));
     }
 
-    // GET api/<CatalogController>/5
-    [HttpGet("{id}", Name = "Get catalog item by Id")]
+    /// <summary>
+    /// Gets a catalog item.
+    /// </summary>    
+    /// <returns>A catalog item filtered by id</returns>
+    /// <response code="200">Success</response>  
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Catalog))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> Get(int id, CancellationToken cancel = default)
@@ -41,7 +50,7 @@ public class CatalogController : ControllerBase
     /// <returns>A newly created catalog item</returns>
     /// <response code="201">Returns the newly created item</response>
     /// <response code="400">If the request is not correct</response>
-    [HttpPost(Name = "Create a new catalog item")]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Catalog))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post(CreateCatalogCommand catalog, CancellationToken cancel = default)
@@ -49,8 +58,15 @@ public class CatalogController : ControllerBase
         return Created("",await _mediator.Send(catalog, cancel));
     }
 
-    // PUT api/<CatalogController>/5
-    [HttpPut("{id}", Name = "Update a catalog item by Id")]
+    /// <summary>
+    /// Creates a catalog item.
+    /// </summary>
+    /// <param name="id">Id</param>
+    /// <param name="catalog">Catalog Item</param>
+    /// <returns>A newly created catalog item</returns>
+    /// <response code="201">Returns the newly created item</response>
+    /// <response code="400">If the request is not correct</response>
+    [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -68,8 +84,14 @@ public class CatalogController : ControllerBase
         }
     }
 
-    // DELETE api/<CatalogController>/5
-    [HttpDelete("{id}", Name = "Delete a catalog item by Id")]
+    /// <summary>
+    /// Delete a catalog item.
+    /// </summary>
+    /// <param name="id">Id</param>
+    /// <returns>A newly created catalog item</returns>
+    /// <response code="201">Returns the newly created item</response>
+    /// <response code="400">If the request is not correct</response>
+    [HttpDelete("{id}")]
     public void Delete(int id)
     {
     }
