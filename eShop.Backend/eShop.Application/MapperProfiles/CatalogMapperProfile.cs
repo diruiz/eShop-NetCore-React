@@ -8,9 +8,7 @@ public class CatalogMapperProfile : Profile
 {
     public CatalogMapperProfile()
     {
-        this.CreateMap<Catalog, CreateCatalogCommand>();
-        this.CreateMap<Catalog, UpdateCatalogCommand>();
-        this.CreateMap<CreateCatalogCommand, Catalog>();
-        this.CreateMap<UpdateCatalogCommand, Catalog>();
+        this.CreateMap<Catalog, CreateCatalogCommand>().ReverseMap();
+        this.CreateMap<Catalog, UpdateCatalogCommand>().ReverseMap();       
     }
 }
