@@ -4,6 +4,7 @@ using eShop.Application.Commands;
 using eShop.Application.Commands.Handlers;
 using eShop.Domain.Services.Interfaces;
 using eShop.Models.eShopDbModels;
+using FluentAssertions;
 using Moq;
 
 namespace eShop.UnitTests.Domain.Commands;
@@ -39,7 +40,7 @@ public sealed class CreateCatalogBrandCommandHandlerTests
         var result = await _handler.Handle(command, cancellationToken);
 
         // Assert
-        result.Equals(response);
+        result.Should().Be(response);
     }
 
     private CreateCatalogBrandCommand CreateCatalogBrandCommandObject()

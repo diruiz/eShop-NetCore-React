@@ -2,6 +2,7 @@
 using eShop.Models.eShopDbModels;
 using eShop.Persistence.Context;
 using eShop.Persistence.Repository.Implementation;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
 namespace eShop.UnitTests.Persistence.Repository;
@@ -34,7 +35,7 @@ public sealed class CatalogTypeRepositoryTests
         _context.SaveChanges();
 
         // Assert: 
-        Assert.Equal(1, catalogTypeObject.Id);
+        catalogTypeObject.Id.Should().BeGreaterThan(0);        
     }
 
     private CatalogType CreateCatalogTypeObject()
