@@ -1,4 +1,5 @@
 ﻿using eShop.Domain.Services.Interfaces;
+using eShop.Models.DTO;
 using eShop.Models.eShopDbModels;
 using eShop.Persistence.UnitOfWork.Interface;
 
@@ -25,6 +26,12 @@ public class CatalogService : ICatalogService
     {
         var CatalogList = await _unitOfWork.Catalog.GetAll();
         return CatalogList;
+    }
+
+    public async Task<GenericPagedResponse<Catalog>> GetCatalogPaged(int page = 0, int limit = 10)
+    {
+        var CatalogPaged = await _unitOfWork.Catalog.GetPagedResponse(page, limit);
+        return CatalogPaged;
     }
 
     public async Task<Catalog> GetCatalogById(int catalogId)

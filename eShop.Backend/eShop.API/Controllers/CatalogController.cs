@@ -1,5 +1,6 @@
 ﻿using eShop.Application.Commands;
 using eShop.Application.Queries;
+using eShop.Models.DTO;
 using eShop.Models.eShopDbModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,24 @@ public class CatalogController : ControllerBase
     /// </summary>    
     /// <returns>Returns all the catalog</returns>
     /// <response code="200">Success</response>    
-    [HttpGet]
+    [HttpGet("all")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Catalog>))]
     public async Task<ActionResult> Get(CancellationToken cancel = default)
     {
         var query = new GetAllCatalogQuery();
+        return Ok(await _mediator.Send(query, cancel));
+    }
+
+    /// <summary>
+    /// Gets the catalog paged.
+    /// </summary>    
+    /// <returns>Returns all the catalog</returns>
+    /// <response code="200">Success</response>    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GenericPagedResponse<Catalog>))]
+    public async Task<ActionResult> GetPaged(int page = 0, int limit = 10, CancellationToken cancel = default)
+    {
+        var query = new GetCatalogPagedQuery( page, limit);
         return Ok(await _mediator.Send(query, cancel));
     }
 

@@ -1,4 +1,5 @@
-﻿using eShop.Persistence.Context;
+﻿using eShop.Models.DTO;
+using eShop.Persistence.Context;
 using eShop.Persistence.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,5 +37,17 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     public void Update(T entity)
     {
         _dbContext.Set<T>().Update(entity);
+    }
+
+    public async Task<GenericPagedResponse<T>> GetPagedResponse(int page, int limit) {
+        GenericPagedResponse<T> response = new();
+
+        var query = _dbContext.Set<T>().AsQueryable();
+
+        response.Count = await query.CountAsync();
+        int skip = page * limit;
+        response.Items = await query.Skip(skip).Take(limit).ToListAsync();
+
+        return response;
     }
 }
