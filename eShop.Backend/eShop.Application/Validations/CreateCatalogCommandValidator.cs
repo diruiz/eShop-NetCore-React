@@ -1,7 +1,7 @@
 ﻿using eShop.Application.Commands;
 using FluentValidation;
 
-namespace eShop.API.Validations;
+namespace eShop.Application.Validations;
 
 public class CreateCatalogCommandValidator : AbstractValidator<CreateCatalogCommand>
 {

@@ -35,6 +35,8 @@ namespace eShop.Domain
 
             #region Services
             services.AddScoped<ICatalogService, CatalogService>();
+            services.AddScoped<ICatalogBrandService, CatalogBrandService>();
+            services.AddScoped<ICatalogTypeService, CatalogTypeService>();
             services.AddScoped<IUserService, UserService>();
             #endregion
 
