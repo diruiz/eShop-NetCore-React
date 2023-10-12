@@ -5,17 +5,22 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.API", "eShop.API\eShop.API.csproj", "{20868DAE-27EE-4DDF-A8AB-860BEA209324}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.Domain", "eShop.Domain\eShop.Domain.csproj", "{36A2A440-1F24-44AF-9373-3AED8929F337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.Domain", "eShop.Domain\eShop.Domain.csproj", "{36A2A440-1F24-44AF-9373-3AED8929F337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.Persistence", "eShop.Persistence\eShop.Persistence.csproj", "{7F97B7BB-CD0D-447F-B3BF-9B08364603BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.Persistence", "eShop.Persistence\eShop.Persistence.csproj", "{7F97B7BB-CD0D-447F-B3BF-9B08364603BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.Application", "eShop.Application\eShop.Application.csproj", "{A8925290-948B-4A21-875E-B2E00214616A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.Application", "eShop.Application\eShop.Application.csproj", "{A8925290-948B-4A21-875E-B2E00214616A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7B7A2214-05F1-471E-B8E6-A433329EDC14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.UnitTests", "tests\eShop.UnitTests\eShop.UnitTests.csproj", "{4FB2475C-E3ED-4FAF-A412-75E51D9540A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.UnitTests", "tests\eShop.UnitTests\eShop.UnitTests.csproj", "{4FB2475C-E3ED-4FAF-A412-75E51D9540A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.Models", "eShop.Models\eShop.Models.csproj", "{D2FF438B-8BFA-42A6-B976-8D3D074A8B5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.Models", "eShop.Models\eShop.Models.csproj", "{D2FF438B-8BFA-42A6-B976-8D3D074A8B5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{6599FB98-3895-4355-9218-E195A398A5F7}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

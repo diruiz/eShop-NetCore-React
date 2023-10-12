@@ -7,8 +7,6 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["eShop.API/eShop.API.csproj", "eShop.API/"]
-RUN dotnet restore "eShop.API/eShop.API.csproj"
 COPY . .
 WORKDIR "/src/eShop.API"
 RUN dotnet build "eShop.API.csproj" -c Release -o /app/build
