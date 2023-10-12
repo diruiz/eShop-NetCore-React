@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using eShop.Application.Commands;
 using eShop.Application.Validations;
-using eShop.Models.eShopDbModels;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 
@@ -62,8 +61,13 @@ public class CreateCatalogCommandValidatorTests
     [Fact]
     public void ShouldNotHaveError()
     {
+        // Arrange
         var catalog = CreateCatalogObject();
+
+        // Act
         var result = _validator.TestValidate(catalog);
+
+        // Assert
         result.IsValid.Should().Be(true);
     }
     private CreateCatalogCommand CreateCatalogObject()
