@@ -1,0 +1,68 @@
+.esh-catalog-item{
+	cursor: pointer;
+	margin-bottom: 1.5rem;
+	width: 100%;
+}
+
+.esh-catalog-item:hover{
+	background-color: #fff;
+}
+
+.esh-catalog-item:hover .esh-catalog-thumbnail-icon {
+	opacity: 1;
+}
+
+.esh-catalog-thumbnail-wrapper {
+	background-color: #dbdede;
+	height: 0;
+	overflow: hidden;
+	padding-top: 100%;
+	position: relative;
+}
+
+.esh-catalog-thumbnail-icon {
+	background-color: #f66f61;
+	border-radius: 50%;
+	height: 3.5rem;
+	left: 50%;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	width: 3.5rem;
+	z-index: 20;
+	transition: all .35s;
+}
+.esh-catalog-thumbnail-icon-svg
+{
+	height: auto;
+	width: 1.5rem;
+}
+
+.esh-catalog-thumbnail
+{
+	height: 100%;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	width: auto;
+	z-index: 10;
+}
+
+.esh-catalog-details{
+	height: 4rem;
+}
+
+.esh-catalog-name{
+	font-size: 16px; 
+	text-transform: uppercase;
+}
+
+.esh-catalog-price{
+	color: #f66f61;
+	font-size: 16px;
+}
+.esh-catalog-price::before{
+	content: '$';
+}
