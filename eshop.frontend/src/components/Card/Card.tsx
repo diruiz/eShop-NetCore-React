@@ -3,12 +3,17 @@ import { ICatalogItem } from '../../models/catalog.model';
 import './Card.css';
 import addItem from '../../assets/images/add.svg'
 
-export default function Card({item} : {item : ICatalogItem}) {
+interface CardProps {
+	item: ICatalogItem;
+	onClick: (item: ICatalogItem) => void;	
+}
+
+export default function Card({item, onClick} : CardProps) {
   return (
-		<div className="esh-catalog-item">
+		<div className="esh-catalog-item" onClick={e => onClick(item)}>
 			<div className="esh-catalog-thumbnail-wrapper">
 				<div className="esh-catalog-thumbnail-icon d-flex justify-content-center">
-					<img className="esh-catalog-thumbnail-icon-svg" src={addItem} />
+					<img className="esh-catalog-thumbnail-icon-svg" src={addItem} alt="Add to cart" />
 				</div>
 				<img className="esh-catalog-thumbnail" alt={item.name} src={item.pictureFileName} />
 			</div>

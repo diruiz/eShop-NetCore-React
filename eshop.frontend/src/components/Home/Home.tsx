@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ICatalog } from '../../models/catalog.model';
+import { ICatalog, ICatalogItem } from '../../models/catalog.model';
 import { getPaginatedCatalog } from '../../services/catalog.service';
 import './Home.css';
 import Card from '../Card/Card';
@@ -24,16 +24,20 @@ export default function Home() {
 		event.preventDefault();
 		setCurrentPage(newPage);
 	}
+
+	function addToCart(item: ICatalogItem){
+		console.log(item);		
+	}
   
   return (
     <div>
       <h1>Welcome to my app</h1> 
 	  	<div className="esh-catalog-items row">
 				{
-					(catalog && catalog?.count > 0) && catalog.items.map((item)=>{
+					(catalog && catalog?.count > 0) && catalog.items.map((item, index)=>{
 						return (
-							<div className="col-12 col-sm-6 col-md-4 col-lg-3">
-								<Card item={item} />
+							<div key={`card-${index}`} className="col-12 col-sm-6 col-md-4 col-lg-3">
+								<Card item={item} onClick={addToCart} />
 							</div>
 						);
 					})
@@ -50,7 +54,7 @@ export default function Home() {
 					</PaginationItem>
 
 					{[...Array(pagesCount)].map((page, index) => 
-						<PaginationItem active={index === currentPage} key={index}>
+						<PaginationItem active={index === currentPage} key={`page-${index}`}>
 							<PaginationLink onClick={e => handlePagination(e, index)} href="#">
 								{index + 1}
 							</PaginationLink>
