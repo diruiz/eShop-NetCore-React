@@ -24,9 +24,11 @@ builder.Services.AddDomainDependencyInjectionServices(configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly));
 builder.Services.AddAutoMapper(typeof(ApplicationLayerEntryPoint).Assembly);
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+var corsPolicy = "AllowAll";
 builder.Services.AddCors(options => 
 {
-   options.AddPolicy("AllowAll",
+   options.AddPolicy(corsPolicy,
    builder =>
    {
        builder.AllowAnyOrigin()
@@ -59,6 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(corsPolicy);
 
 app.UseHttpsRedirection();
 
