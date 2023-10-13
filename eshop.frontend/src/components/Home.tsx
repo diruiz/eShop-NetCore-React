@@ -15,7 +15,7 @@ export default function Home() {
 			setCatalog(result);
 		}
 		getData();		   
-  },[]);
+  },[page, limit]);
   
   return (
     <div>
