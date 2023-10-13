@@ -24,6 +24,17 @@ builder.Services.AddDomainDependencyInjectionServices(configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly));
 builder.Services.AddAutoMapper(typeof(ApplicationLayerEntryPoint).Assembly);
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddCors(options => 
+{
+   options.AddPolicy("AllowAll",
+   builder =>
+   {
+       builder.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+   });
+});
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
