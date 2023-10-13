@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container } from 'reactstrap';
+import NavMenu from './NavMenu';
 
 export default function Layout({children} : {children : any}) {
   return (
     <div>
-      <h1>Welcome to my app</h1>
+      <NavMenu />
       <Container>
         {children}
       </Container>
