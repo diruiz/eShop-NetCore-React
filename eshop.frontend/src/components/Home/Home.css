@@ -1,3 +1,7 @@
 .esh-catalog-items{
-    margin-top: 1rem;
+	margin-top: 1rem;
+}
+
+.pagination {
+	justify-content: center;	
 }
