@@ -1,7 +1,5 @@
 using eShop.IdentityServer.Data;
 using eShop.IdentityServer.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
