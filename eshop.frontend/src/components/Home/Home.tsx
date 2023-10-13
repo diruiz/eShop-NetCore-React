@@ -32,9 +32,6 @@ export default function Home() {
 						);
 					})
 				}
-				{pagesNumber}
-				{JSON.stringify(catalog)} 
-				
 			</div>    
     </div>
   );
