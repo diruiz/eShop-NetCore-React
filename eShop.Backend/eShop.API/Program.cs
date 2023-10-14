@@ -2,6 +2,7 @@ using eShop.Application;
 using eShop.Domain;
 using FluentValidation;
 using Microsoft.OpenApi.Models;
+using Okta.AspNetCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,13 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 var configuration = builder.Configuration;
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+builder.Services.AddAuthentication(options =>
 {
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-    googleOptions.CallbackPath = "/api/oauth/google";
-    
+    options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
+    options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
+    options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
+})
+.AddOktaWebApi(new OktaWebApiOptions()
+{
+    OktaDomain = configuration["Okta:OktaDomain"]    
 });
+
+builder.Services.AddAuthorization();
 
 // Add services to the container.
 
@@ -47,6 +53,34 @@ builder.Services.AddSwaggerGen(options => {
         Title = "eShop API",
         Description = "An ASP.NET Core Web API for managing an online store",        
     });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description =
+        "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+
+            },
+            new List<string>()
+        }
+    });
 
     // using System.Reflection;
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -65,6 +99,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors(corsPolicy);
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
