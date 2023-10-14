@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink } from 'reactstrap';
 import './NavMenu.css';
+import LoginMenu from '../api-authorization/LoginMenu';
+import { getGoogleUrl } from '../../utils/getGoogleUrl';
 
 export default function NavMenu() {
 	const [collapsed, setCollapsed] = useState(true);
@@ -19,7 +21,11 @@ export default function NavMenu() {
 					<ul className="navbar-nav flex-grow">
 						<NavItem>
 							<NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-						</NavItem>							
+						</NavItem>
+						<NavItem>
+							<NavLink tag={Link} className="text-dark" to={getGoogleUrl("/")}>login 2</NavLink>
+						</NavItem>						
+						<LoginMenu></LoginMenu>						
 					</ul>
 				</Collapse>
 			</Navbar>

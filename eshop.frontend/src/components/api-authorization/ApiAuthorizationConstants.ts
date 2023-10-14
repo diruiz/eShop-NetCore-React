@@ -1,4 +1,4 @@
-export const ApplicationName = 'Project1';
+export const ApplicationName = 'eShop';
 
 export const QueryParameterNames = {
   ReturnUrl: 'returnUrl',
@@ -23,16 +23,16 @@ const prefix = '/authentication';
 
 export const ApplicationPaths = {
   DefaultLoginRedirectPath: '/',
-  ApiAuthorizationClientConfigurationUrl: `_configuration/${ApplicationName}`,
+  ApiAuthorizationClientConfigurationUrl: `${process.env.REACT_APP_IDENTITY_SERVER_ENDPOINT}/_configuration/${ApplicationName}`,
   ApiAuthorizationPrefix: prefix,
   Login: `${prefix}/${LoginActions.Login}`,
-  LoginFailed: `${prefix}/${LoginActions.LoginFailed}`,
-  LoginCallback: `${prefix}/${LoginActions.LoginCallback}`,
+  LoginFailed: `${process.env.REACT_APP_FRONTEND_ENDPOINT}/${LoginActions.LoginFailed}`,
+  LoginCallback: `${process.env.REACT_APP_FRONTEND_ENDPOINT}/${LoginActions.LoginCallback}`,
   Register: `${prefix}/${LoginActions.Register}`,
   Profile: `${prefix}/${LoginActions.Profile}`,
   LogOut: `${prefix}/${LogoutActions.Logout}`,
   LoggedOut: `${prefix}/${LogoutActions.LoggedOut}`,
   LogOutCallback: `${prefix}/${LogoutActions.LogoutCallback}`,
-  IdentityRegisterPath: 'Identity/Account/Register',
-  IdentityManagePath: 'Identity/Account/Manage'
+  IdentityRegisterPath: `${process.env.REACT_APP_IDENTITY_SERVER_ENDPOINT}/Identity/Account/Register`,
+  IdentityManagePath: `${process.env.REACT_APP_IDENTITY_SERVER_ENDPOINT}/Identity/Account/Manage`
 };

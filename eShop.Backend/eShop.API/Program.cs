@@ -13,7 +13,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-    googleOptions.CallbackPath = "/api/sessions/oauth/google";
+    googleOptions.CallbackPath = "/api/oauth/google";
     
 });
 

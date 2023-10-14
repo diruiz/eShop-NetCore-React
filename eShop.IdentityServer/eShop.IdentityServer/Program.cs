@@ -33,6 +33,18 @@ builder.Services.AddAuthentication()
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+var corsPolicy = "AllowAll";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(corsPolicy,
+    builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,6 +59,7 @@ else
     app.UseHsts();
 }
 
+app.UseCors(corsPolicy);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

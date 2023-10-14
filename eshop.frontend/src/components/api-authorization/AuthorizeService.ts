@@ -1,5 +1,5 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client';
-import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
+import { ApplicationPaths, ApplicationName, LoginActions, LogoutActions } from './ApiAuthorizationConstants';
 
 export class AuthorizeService {
   _callbacks: any = [];
@@ -50,32 +50,14 @@ export class AuthorizeService {
     } catch (silentError) {
       // User might not be authenticated, fallback to popup authentication
       console.log("Silent authentication error: ", silentError);
-
-      try {
-        if (this._popUpDisabled) {
-          throw new Error('Popup disabled. Change \'AuthorizeService.js:AuthorizeService._popupDisabled\' to false to enable it.')
-        }
-
-        const popUpUser = await this.userManager.signinPopup(this.createArguments({}));
-        this.updateState(popUpUser);
-        return this.success(state);
-      } catch (popUpError:any) {
-        if (popUpError.message === "Popup window closed") {
-          // The user explicitly cancelled the login action by closing an opened popup.
-          return this.error("The user closed the window.");
-        } else if (!this._popUpDisabled) {
-          console.log("Popup authentication error: ", popUpError);
-        }
-
-        // PopUps might be blocked by the user, fallback to redirect
-        try {
-          await this.userManager.signinRedirect(this.createArguments(state));
-          return this.redirect();
-        } catch (redirectError:any) {
-          console.log("Redirect authentication error: ", redirectError);
-          return this.error(redirectError);
-        }
-      }
+        
+			try {
+				await this.userManager.signinRedirect(this.createArguments(state));
+				return this.redirect();
+			} catch (redirectError:any) {
+				console.log("Redirect authentication error: ", redirectError);
+				return this.error(redirectError);
+			}      
     }
   }
 
@@ -179,8 +161,10 @@ export class AuthorizeService {
     if (this.userManager !== undefined) {
       return;
     }
+		debugger;
+		let configUrl = ApplicationPaths.ApiAuthorizationClientConfigurationUrl;
 
-    let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+    let response = await fetch(configUrl);
     if (!response.ok) {
       throw new Error(`Could not load settings for '${ApplicationName}'`);
     }
@@ -191,6 +175,9 @@ export class AuthorizeService {
     settings.userStore = new WebStorageStateStore({
       prefix: ApplicationName
     });
+
+		settings.redirect_uri = LoginActions.LoginCallback;
+		settings.post_logout_redirect_uri = LogoutActions.LogoutCallback;
 
     this.userManager = new UserManager(settings);
 
