@@ -35,7 +35,7 @@ namespace eShop.API.Controllers
             var principal = HttpContext.User.Identity as ClaimsIdentity;
             var userIdentifier = principal?.Claims.SingleOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            await _cache.SetRecordAsync($"basket-{userIdentifier}", basket);
+            await _cache.SetRecordAsync($"basket-{userIdentifier}", basket, TimeSpan.FromDays(7)); //records stored for a week
 
             return Ok();
         }
