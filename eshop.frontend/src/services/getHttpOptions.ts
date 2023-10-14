@@ -7,11 +7,12 @@ export default function getHttpOptions(method = 'GET', body: any|null = null ){
     }
     const token = JSON.parse(storage)?.accessToken?.accessToken;
     var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
     myHeaders.append('Authorization', `Bearer ${token}`);
     var requestOptions = {
     method,
     headers: myHeaders,
-    body: body
+    body: body ? JSON.stringify(body) : null
   };
   return requestOptions;
 }

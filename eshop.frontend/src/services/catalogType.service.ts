@@ -14,3 +14,16 @@ export async function getAllCatalogType()
 	const result = await response.json();	
 	return result as ICatalogTypeItem[];
 }
+
+export async function createCatalogType(type:string)
+{
+	const options = getHttpOptions('POST',{type});
+	const url = `${process.env.REACT_APP_API_ENDPOINT}/v1/CatalogType`;	
+	const response = await fetch(url, options);
+	if (!response.ok) {
+			throw new Error(response.statusText);
+	}
+
+	const result = await response.json();	
+	return result as ICatalogTypeItem;
+}
