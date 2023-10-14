@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-export default function LoginCallback() {
+export default function Login() {
 	return (
 		<div>
-			Callback url
+			Login url
 		</div>
-
 	);
 }

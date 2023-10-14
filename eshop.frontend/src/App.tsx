@@ -1,18 +1,24 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import AppRoutes from './AppRoutes';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
+import config from './utils/config';
+import { Security } from '@okta/okta-react';
 
-function App() {
+const oktaAuth = new OktaAuth(config);
+
+function App() {  
+  const navigate = useNavigate();
+  const restoreOriginalUri = (oktaAuth:OktaAuth,  originalUri:string) => {
+    navigate(toRelativeUrl(originalUri || '/', window.location.origin));
+  };
   return (
-    <Layout>
-      <Routes>
-      {AppRoutes.map((route, index) => {
-        const { element, ...rest } = route;
-        return <Route key={index} {...rest} element={element} />;
-      })}
-      </Routes>      
-    </Layout>
+    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+      <Layout>
+        <AppRoutes />           
+      </Layout>
+    </Security>
   );
 }
 

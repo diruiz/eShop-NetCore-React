@@ -1,16 +1,21 @@
+import { useOktaAuth } from '@okta/okta-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink } from 'reactstrap';
 import './NavMenu.css';
-import LoginMenu from '../api-authorization/LoginMenu';
-import { getGoogleUrl } from '../../utils/getGoogleUrl';
 
 export default function NavMenu() {
 	const [collapsed, setCollapsed] = useState(true);
+	const { authState, oktaAuth } = useOktaAuth();
 
-	function toggleNavbar (){
-		setCollapsed(!collapsed);
-	}	
+	const login = async () => oktaAuth.signInWithRedirect();
+  const logout = async () => oktaAuth.signOut();
+	const toggleNavbar = () => setCollapsed(!collapsed);
+	
+	if (!authState) {
+    return null;
+  }
+	debugger;
 
 	return (
 		<header>        
@@ -22,10 +27,16 @@ export default function NavMenu() {
 						<NavItem>
 							<NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
 						</NavItem>
-						<NavItem>
-							<NavLink tag={Link} className="text-dark" to={getGoogleUrl("/")}>login 2</NavLink>
-						</NavItem>						
-						<LoginMenu></LoginMenu>						
+						{ authState.isAuthenticated && (
+							<NavItem>
+								<NavLink tag={Link} className="text-dark" onClick={logout} >Logout</NavLink>
+							</NavItem>
+						)}
+						{ authState && !authState.isAuthenticated && (
+							<NavItem>
+								<NavLink tag={Link} className="text-dark" onClick={login} >Login</NavLink>
+							</NavItem>
+						)}
 					</ul>
 				</Collapse>
 			</Navbar>
