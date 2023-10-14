@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\eShop.Application\eShop.Application.csproj" />
     <ProjectReference Include="..\eShop.Domain\eShop.Domain.csproj" />
+    <ProjectReference Include="..\eShop.Infrastructure\eShop.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{6599FB
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.Infrastructure", "eShop.Infrastructure\eShop.Infrastructure.csproj", "{8DDF6891-942C-45F9-A93E-D1EB4A594F5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{D2FF438B-8BFA-42A6-B976-8D3D074A8B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2FF438B-8BFA-42A6-B976-8D3D074A8B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2FF438B-8BFA-42A6-B976-8D3D074A8B5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DDF6891-942C-45F9-A93E-D1EB4A594F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDF6891-942C-45F9-A93E-D1EB4A594F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDF6891-942C-45F9-A93E-D1EB4A594F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDF6891-942C-45F9-A93E-D1EB4A594F5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
