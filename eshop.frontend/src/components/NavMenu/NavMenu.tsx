@@ -41,7 +41,12 @@ export default function NavMenu() {
 						</NavItem>
 						{ authState.isAuthenticated && (
 							<NavItem>
-								<NavLink tag={Link} className="text-dark" to="/profile" >{userInfo.name}</NavLink>
+								<NavLink tag={Link} className="text-dark" to="/catalog" >Manage Catalog</NavLink>
+							</NavItem>
+						)}
+						{ authState.isAuthenticated && (
+							<NavItem>
+								<NavLink tag={Link} className="text-dark" to="/profile" >{userInfo?.name}</NavLink>
 							</NavItem>
 						)}
 						{ authState.isAuthenticated && (

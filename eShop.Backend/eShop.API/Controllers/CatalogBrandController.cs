@@ -2,6 +2,7 @@
 using eShop.Application.Queries;
 using eShop.Models.eShopDbModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShop.API.Controllers;
@@ -50,6 +51,7 @@ public class CatalogBrandController : ControllerBase
     /// <returns>Ok Response</returns>
     /// <response code="200">Success</response>
     /// <response code="400">If the request is not correct</response>
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CatalogBrand))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -66,6 +68,7 @@ public class CatalogBrandController : ControllerBase
     /// <returns>A newly created catalogBrand item</returns>
     /// <response code="201">Returns the newly created item</response>
     /// <response code="400">If the request is not correct</response>
+    [Authorize]
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -91,6 +94,7 @@ public class CatalogBrandController : ControllerBase
     /// <returns>A newly created catalogBrand item</returns>
     /// <response code="200">Success</response>
     /// <response code="404">If the item is not found</response>
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
