@@ -1,5 +1,6 @@
 using eShop.Application;
 using eShop.Domain;
+using eShop.Infrastructure;
 using FluentValidation;
 using Microsoft.OpenApi.Models;
 using Okta.AspNetCore;
@@ -30,6 +31,7 @@ builder.Services.AddDomainDependencyInjectionServices(configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationLayerEntryPoint).Assembly));
 builder.Services.AddAutoMapper(typeof(ApplicationLayerEntryPoint).Assembly);
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddInfrastructureDependencyInjectionServices(configuration);
 
 var corsPolicy = "AllowAll";
 builder.Services.AddCors(options => 
