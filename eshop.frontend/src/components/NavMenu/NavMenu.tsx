@@ -1,12 +1,25 @@
 import { useOktaAuth } from '@okta/okta-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink } from 'reactstrap';
 import './NavMenu.css';
 
 export default function NavMenu() {
 	const [collapsed, setCollapsed] = useState(true);
+	const [userInfo, setUserInfo] = useState(null);
 	const { authState, oktaAuth } = useOktaAuth();
+
+	useEffect(() => {
+		if (!authState?.isAuthenticated) {
+			// When user isn't authenticated, forget any user info
+			setUserInfo(null);
+		} else {
+			oktaAuth.getUser().then((info) => {
+				setUserInfo(info);
+				console.log(info);
+			});
+		}
+	}, [authState, oktaAuth]); // Update if authState changes
 
 	const login = async () => oktaAuth.signInWithRedirect();
   const logout = async () => oktaAuth.signOut();
@@ -14,8 +27,7 @@ export default function NavMenu() {
 	
 	if (!authState) {
     return null;
-  }
-	debugger;
+  }	
 
 	return (
 		<header>        
@@ -27,6 +39,11 @@ export default function NavMenu() {
 						<NavItem>
 							<NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
 						</NavItem>
+						{ authState.isAuthenticated && (
+							<NavItem>
+								<NavLink tag={Link} className="text-dark" to="/profile" >{userInfo.name}</NavLink>
+							</NavItem>
+						)}
 						{ authState.isAuthenticated && (
 							<NavItem>
 								<NavLink tag={Link} className="text-dark" onClick={logout} >Logout</NavLink>

@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import ManageCatalog from "./components/ManageCatalog/ManageCatalog";
 import { RequiredAuth } from "./components/common/RequiredAuth";
 import Loading from "./components/common/Loading";
+import Profile from './components/Profile/Profile';
 
 const AppRoutes = () => {
   return (
@@ -13,7 +14,10 @@ const AppRoutes = () => {
       <Route path="login/callback" element={<LoginCallback loadingElement={<Loading/>}/>}/>
       <Route path="/catalog" element={<RequiredAuth/>}>
         <Route path="" element={<ManageCatalog/>}/>
-      </Route>     
+      </Route>
+			<Route path="/profile" element={<RequiredAuth/>}>
+        <Route path="" element={<Profile/>}/>
+      </Route>    
     </Routes>
   );
 };
