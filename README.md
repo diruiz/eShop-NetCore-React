@@ -4,6 +4,10 @@
 
 Tha api project has the design patterns Repository, Unit of work, Dependency Injection, CQRS, Mediator and you must check if makes sense implement all of them.
 
+Here you can see a general overview of the api arquirtecture : 
+![architecture](doc/images/architecture.jpg)
+
+
 ##  0. Prerrequisites 
 
 This project requires a MS SQL Server and a Redis Server runing, and docker CLI (Could be Docker Desktop or Rancher Desktop) all the docker commands must be  executed in a terminal
