@@ -1,5 +1,6 @@
 ﻿using eShop.Infrastructure.Redis;
 using eShop.Models.DTO;
+using eShop.Models.eShopDbModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -19,6 +20,8 @@ namespace eShop.API.Controllers
         }
         
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<BasketItem>))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> GetUserBasket()
         {
             var principal = HttpContext.User.Identity as ClaimsIdentity;
@@ -30,6 +33,8 @@ namespace eShop.API.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> SetUserBasket(List<BasketItem> basket)
         {
             var principal = HttpContext.User.Identity as ClaimsIdentity;
