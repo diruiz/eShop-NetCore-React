@@ -6,6 +6,7 @@ import { createCatalogType, getAllCatalogType } from '../../services/catalogType
 import { ICatalogItem } from '../../models/catalog.model';
 import { createCatalog, getAllCatalog } from '../../services/catalog.service';
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
+import { handleUpload } from '../../services/file.service';
 
 export default function ManageCatalog() {
 	const [catalog, setCatalog] = useState<ICatalogItem[]>([]);
@@ -55,11 +56,13 @@ export default function ManageCatalog() {
 
 	const handleAddNewCatalogItem = async (e : any) => {
 		let valid = !!catalogInput.name && !!selectedFile;
-		console.log(selectedFile);
+		
 		
 		if(valid)
 		{
-			const newItem = await createCatalog(catalogInput);
+			const fileUpload = await handleUpload(selectedFile);
+			debugger;		
+			const newItem = await createCatalog({...catalogInput, pictureFileName: fileUpload.fileUrl});
 			setCatalog([...catalog, newItem]);
 		}
 	}
