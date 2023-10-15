@@ -4,7 +4,7 @@ import { ICatalogTypeItem } from '../../models/catalogType.model';
 import { createCatalogBrand, getAllCatalogBrand } from '../../services/catalogBrand.service';
 import { createCatalogType, getAllCatalogType } from '../../services/catalogType.service';
 import { ICatalogItem } from '../../models/catalog.model';
-import { getAllCatalog } from '../../services/catalog.service';
+import { createCatalog, getAllCatalog } from '../../services/catalog.service';
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
 export default function ManageCatalog() {
@@ -13,6 +13,15 @@ export default function ManageCatalog() {
 	const [catalogType, setCatalogType] = useState<ICatalogTypeItem[]>([]);
 	const [brandInputText, setBrandInputText] = useState<any>({invalid:null, value:''});
 	const [typeInputText, setTypeInputText] = useState<any>({invalid:null, value:''});
+	const [selectedFile, setSelectedFile] = useState(null);
+	const [catalogInput, setCatalogInput] = useState<any> ({
+		catalogBrandId : 1,
+		catalogTypeId: 1,
+		description: '',
+		name: '',
+		pictureFileName: '',
+		price: 10,
+		availableStock: 1});
 
 	useEffect(() => {
 		const getData = async () => {
@@ -42,6 +51,16 @@ export default function ManageCatalog() {
 			const newItemType = await createCatalogType(typeInputText.value);
 			setCatalogType([...catalogType, newItemType]);
 		}		
+	}
+
+	const handleAddNewCatalogItem = async (e : any) => {
+		let valid = !!catalogInput.name && !!selectedFile;
+		console.log(selectedFile);
+		if(valid)
+		{
+			const newItem = await createCatalog(catalogInput);
+			setCatalog([...catalog, newItem]);
+		}
 	}
 
 	
@@ -111,10 +130,40 @@ export default function ManageCatalog() {
 				(catalogBrand && 	catalogType) && (
 					<Form>
 						<FormGroup>					
-							<Input invalid={typeInputText.invalid}  name="catalogName" id="catalogNameInput" placeholder="New Type name" value={typeInputText.value} onChange={e => setTypeInputText({...typeInputText, value: e.target.value})} />
-							<FormFeedback invalid >The item is required</FormFeedback>					
-					</FormGroup>
-					<Button onClick={handleAddNewItemType}>Submit</Button>
+							<Input invalid={!catalogInput.name}  name="catalogName" id="catalogNameInput" placeholder="New name" value={catalogInput.name} onChange={e => setCatalogInput({...catalogInput, name: e.target.value})} />
+							<FormFeedback invalid >The item name is required</FormFeedback>					
+						</FormGroup>
+						<FormGroup>
+							<Input name="catalogDescription" id="catalogDescriptionInput" placeholder="Description" value={catalogInput.description} onChange={e => setCatalogInput({...catalogInput, description: e.target.value})} />							
+						</FormGroup>
+						<FormGroup>
+							<Input type="select" name="catalogBrand" id="catalogBrandInput" value={catalogInput.catalogBrandId} onChange={e => setCatalogInput({...catalogInput, catalogBrandId: e.target.value})} >
+								{
+									catalogBrand.map(brand => <option key={`brand-option-${brand.id}`} value={brand.id}>{brand.brand}</option>)
+								}
+							</Input>											
+						</FormGroup>
+						<FormGroup>
+							<Input type="select" name="catalogType" id="catalogTypeInput" value={catalogInput.catalogTypeId} onChange={e => setCatalogInput({...catalogInput, catalogTypeId: e.target.value})} >
+								{
+									catalogType.map(type => <option key={`type-option-${type.id}`} value={type.id}>{type.type}</option>)
+								}
+							</Input>											
+						</FormGroup>
+						<FormGroup>
+							<Label for="catalogPriceInput">Price:</Label>
+							<Input type='number' name="catalogPrice" id="catalogPriceInput" placeholder="Price" value={catalogInput.price} onChange={e => setCatalogInput({...catalogInput, price: e.target.value})} />							
+						</FormGroup>
+						<FormGroup>
+							<Label for="catalogStockInput">Available Stock:</Label>
+							<Input type='number' name="catalogStock" id="catalogStockInput" placeholder="Stock" value={catalogInput.availableStock} onChange={e => setCatalogInput({...catalogInput, availableStock: e.target.value})} />							
+						</FormGroup>
+						<FormGroup>
+							<Input invalid={!selectedFile} type='file' name="catalogImage" id="catalogImageInput" accept="image/*" onChange={e => setSelectedFile(e.target.files[0])}  />
+							<FormFeedback invalid >The image is required</FormFeedback>						
+						</FormGroup>
+
+					<Button onClick={handleAddNewCatalogItem}>Submit</Button>
 
 					</Form>
 				) 

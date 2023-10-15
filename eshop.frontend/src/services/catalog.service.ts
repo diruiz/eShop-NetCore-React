@@ -7,7 +7,7 @@ export async function getPaginatedCatalog(page: number, limit: number)
 	const url = `${process.env.REACT_APP_API_ENDPOINT}/v1/Catalog?page=${page}&limit=${limit}`;	
 	const response = await fetch(url, options);
 	if (!response.ok) {
-			throw new Error(response.statusText);
+    throw new Error(response.statusText);
 	}
 
 	const result = await response.json();	
@@ -20,9 +20,22 @@ export async function getAllCatalog()
 	const url = `${process.env.REACT_APP_API_ENDPOINT}/v1/Catalog/All`;	
 	const response = await fetch(url, options);
 	if (!response.ok) {
-			throw new Error(response.statusText);
+    throw new Error(response.statusText);
 	}
 
 	const result = await response.json();	
 	return result as ICatalogItem[];
+}
+
+export async function createCatalog(catalog:any)
+{
+	const options = getHttpOptions('POST',catalog);
+	const url = `${process.env.REACT_APP_API_ENDPOINT}/v1/Catalog`;	
+	const response = await fetch(url, options);
+	if (!response.ok) {
+		throw new Error(response.statusText);
+	}
+
+	const result = await response.json();	
+	return result as ICatalogItem;
 }
