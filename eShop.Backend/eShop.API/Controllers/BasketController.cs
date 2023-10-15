@@ -1,6 +1,5 @@
 ﻿using eShop.Infrastructure.Redis;
 using eShop.Models.DTO;
-using eShop.Models.eShopDbModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
