@@ -56,6 +56,7 @@ export default function ManageCatalog() {
 	const handleAddNewCatalogItem = async (e : any) => {
 		let valid = !!catalogInput.name && !!selectedFile;
 		console.log(selectedFile);
+		
 		if(valid)
 		{
 			const newItem = await createCatalog(catalogInput);
