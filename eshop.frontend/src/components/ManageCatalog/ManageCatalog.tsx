@@ -76,7 +76,7 @@ export default function ManageCatalog() {
           <Input invalid={brandInputText.invalid}  name="brand" id="brandInput" placeholder="New brand name" value={brandInputText.value} onChange={e => setBrandInputText({...brandInputText, value: e.target.value})} />
           <FormFeedback invalid >The brand name field is required</FormFeedback>					
 				</FormGroup>
-				<Button onClick={handleAddNewBrand}>Submit</Button>
+				<Button onClick={handleAddNewBrand}>Create Brand</Button>
 			</Form>
 			{
 				catalogBrand && (
@@ -105,7 +105,7 @@ export default function ManageCatalog() {
           <Input invalid={typeInputText.invalid}  name="type" id="typeInput" placeholder="New Type name" value={typeInputText.value} onChange={e => setTypeInputText({...typeInputText, value: e.target.value})} />
           <FormFeedback invalid >The item typefield is required</FormFeedback>					
 				</FormGroup>
-				<Button onClick={handleAddNewItemType}>Submit</Button>
+				<Button onClick={handleAddNewItemType}>Create Item Type</Button>
 			</Form>
 			{
 				catalogType && (
@@ -131,7 +131,7 @@ export default function ManageCatalog() {
 
 			<h1>Catalog</h1>
 			{
-				(catalogBrand && 	catalogType) && (
+				(catalogBrand?.length && 	catalogType?.length) && (
 					<Form>
 						<FormGroup>					
 							<Input invalid={!catalogInput.name}  name="catalogName" id="catalogNameInput" placeholder="New name" value={catalogInput.name} onChange={e => setCatalogInput({...catalogInput, name: e.target.value})} />
@@ -166,9 +166,7 @@ export default function ManageCatalog() {
 							<Input invalid={!selectedFile} type='file' name="catalogImage" id="catalogImageInput" accept="image/*" onChange={e => setSelectedFile(e.target.files[0])}  />
 							<FormFeedback invalid >The image is required</FormFeedback>						
 						</FormGroup>
-
-					<Button onClick={handleAddNewCatalogItem}>Submit</Button>
-
+						<Button onClick={handleAddNewCatalogItem}>Create catalog item</Button>
 					</Form>
 				) 
 
