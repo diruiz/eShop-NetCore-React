@@ -1,7 +1,9 @@
 using eShop.Application;
 using eShop.Domain;
 using eShop.Infrastructure;
+using eShop.Persistence.Context;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Okta.AspNetCore;
 using System.Reflection;
@@ -107,5 +109,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<EShopDBContext>();
+    context.Database.Migrate();
+}
 
 app.Run();
