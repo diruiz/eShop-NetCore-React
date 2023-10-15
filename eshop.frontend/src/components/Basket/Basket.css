@@ -2,3 +2,10 @@
     height: 50px;
     width: 50px;
 }
+.esh-basket-button{
+    cursor: pointer;
+}
+
+.esh-basket-button:hover{
+    border: 1px solid #f66f61;
+}

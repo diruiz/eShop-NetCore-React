@@ -25,7 +25,7 @@ export default function Basket({ basket, removeItem }: { basket : IBasketItem[],
 									<td>{item.price}</td>
 									<td>{item.quantity}</td>
 									<td><img className="esh-basket-thumbnail" src={item.pictureFileName} alt={item.name}/></td>	
-									<td><img src={deleteImg} alt="delete" onClick={e => removeItem(item)}></img></td>														
+									<td><img className="esh-basket-button" src={deleteImg} alt="delete" onClick={e => removeItem(item)}></img></td>														
 								</tr>
 							)}
 							<tr>
