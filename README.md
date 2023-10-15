@@ -51,7 +51,7 @@ In this case we will create an image with name **e-shop-api** and tag **1.0.0** 
 docker build -t e-shop-api:1.0.0 -f Dockerfile .
 ```
 
-![ipconfig](doc/images/api-build.jpg)
+![api-build](doc/images/api-build.jpg)
 
 ## 1.2 Run API image
 
@@ -92,6 +92,38 @@ In this case we will create an image with name **e-shop-spa** and tag **1.0.0** 
 ```
 docker build -t e-shop-spa:1.0.0 -f Dockerfile .
 ```
+
+![spa-build](doc/images/spa-build.jpg)
+
+## 2.3 Run API image
+
+Execute the docker run command
+
+```
+docker run -d --name eshop-spa -p 3000:80  e-shop-spa:1.0.0
+```
+![spa-run](doc/images/spa-run.jpg)
+
+## 2.4 SPA
+
+Now you can browse tha api swagger in the url:
+```
+http://localhost:3000
+```
+
+![login](doc/images/login.jpg)
+
+![okta](doc/images/okta.jpg)
+
+![okta](doc/images/manage-catalog.jpg)
+
+![okta](doc/images/brand-type-catalog.jpg)
+
+![okta](doc/images/create-catalog.jpg)
+
+![okta](doc/images/home.jpg)
+
+
 
 
 
