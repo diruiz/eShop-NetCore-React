@@ -6,8 +6,7 @@ namespace eShop.Persistence.UnitOfWork.Implementation;
 
 public class UnitOfWork : IUnitOfWork
 {
-    public EShopDBContext _dbContext { get; }
-    public IUserRepository User { get; }
+    public EShopDBContext _dbContext { get; }    
     public ICatalogRepository Catalog { get; }
     public ICatalogBrandRepository CatalogBrand { get; }
     public ICatalogTypeRepository CatalogType { get; }
@@ -17,15 +16,12 @@ public class UnitOfWork : IUnitOfWork
         EShopDBContext dbContext,
         ICatalogRepository catalog,        
         ICatalogBrandRepository catalogBrand,
-        ICatalogTypeRepository catalogType,
-
-        IUserRepository userRepository)
+        ICatalogTypeRepository catalogType)
     {
         _dbContext = dbContext;
         Catalog = catalog;
         CatalogBrand = catalogBrand;
-        CatalogType = catalogType;
-        User = userRepository;
+        CatalogType = catalogType;        
     }
 
     public int Save()

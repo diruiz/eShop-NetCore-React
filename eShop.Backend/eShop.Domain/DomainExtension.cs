@@ -29,15 +29,13 @@ namespace eShop.Domain
             #region Repositories
             services.AddScoped<ICatalogRepository, CatalogRepository>();
             services.AddScoped<ICatalogBrandRepository, CatalogBrandRepository>();
-            services.AddScoped<ICatalogTypeRepository, CatalogTypeRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICatalogTypeRepository, CatalogTypeRepository>();            
             #endregion
 
             #region Services
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<ICatalogBrandService, CatalogBrandService>();
-            services.AddScoped<ICatalogTypeService, CatalogTypeService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICatalogTypeService, CatalogTypeService>();            
             #endregion
 
             return services;

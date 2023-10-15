@@ -6,8 +6,7 @@ public interface IUnitOfWork
 {
     ICatalogRepository Catalog { get; }
     ICatalogBrandRepository CatalogBrand { get; }
-    ICatalogTypeRepository CatalogType { get; }
-    IUserRepository User { get; }
+    ICatalogTypeRepository CatalogType { get; }    
 
     int Save();
 }
