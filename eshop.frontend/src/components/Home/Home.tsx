@@ -4,9 +4,11 @@ import { ICatalog, ICatalogItem } from '../../models/catalog.model';
 import { getPaginatedCatalog } from '../../services/catalog.service';
 import './Home.css';
 import Card from '../Card/Card';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { IBasketItem } from '../../models/basket.model';
 import { getBasketCache, setBasketCache } from '../../services/basket.service';
+import BasketStatus from '../Basket/BasketStatus';
+import Basket from '../Basket/Basket';
 
 export default function Home() {
 	const [currentPage, setCurrentPage] = useState<number>(0);
@@ -15,6 +17,9 @@ export default function Home() {
 	const [catalog, setCatalog] = useState<ICatalog | undefined>(undefined);
 	const [basket, setBasket] = useState<IBasketItem[]>([]);
 	const { authState, oktaAuth } = useOktaAuth();
+	const [basketModal, setBasketModal] = useState(false);
+
+  const toggleModal = () => setBasketModal(!basketModal);
 
 	useEffect(() => {
 		if (authState?.isAuthenticated){			
@@ -57,9 +62,29 @@ export default function Home() {
 		setBasketCache(newBasket);
 		setBasket(newBasket);		
 	}
+	 
+	function toggleBasketCart(e:any){
+		console.log(e);
+		toggleModal();
+	}
+
+	function removeFromCart(item: ICatalogItem){
+		const newBasket = [...basket];
+		const existentItemIndex = basket.findIndex(b => b.id == item.id);
+		if(existentItemIndex >= 0)
+		{		
+			newBasket.splice(existentItemIndex, 1);						
+		}
+		
+		setBasketCache(newBasket);
+		setBasket(newBasket);
+	}
   
   return (
-    <div>
+    <div className="position-relative">		
+			<div className='position-relative'>
+				<BasketStatus badge={basket.length} onClick={toggleBasketCart}></BasketStatus>
+			</div>
       <h1>Welcome to my app</h1> 
 	  	<div className="esh-catalog-items row">
 				{
@@ -98,7 +123,21 @@ export default function Home() {
 						/>              
 					</PaginationItem>
 				</Pagination>
-			</div>    
+			</div> 
+			<Modal isOpen={basketModal} toggle={toggleModal} >
+        <ModalHeader toggle={toggleModal}>Modal title</ModalHeader>
+        <ModalBody>
+				 <Basket basket={basket} removeItem={removeFromCart}  ></Basket>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggleModal}>
+            Do Something
+          </Button>{' '}
+          <Button color="secondary" onClick={toggleModal}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>  
     </div>
   );
 }

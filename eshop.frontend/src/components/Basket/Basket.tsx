@@ -1,7 +1,9 @@
 import React from 'react';
 import { IBasketItem } from '../../models/basket.model';
+import './Basket.css';
+import deleteImg from '../../assets/images/delete.svg';
 
-export default function Basket(basket: IBasketItem[]) {	
+export default function Basket({ basket, removeItem }: { basket : IBasketItem[], removeItem:any}) {	
 	return(
 		<div>
 			{
@@ -12,7 +14,8 @@ export default function Basket(basket: IBasketItem[]) {
 								<th>Name</th>								
 								<th>Price</th>
 								<th>Quantity</th>
-								<th>image</th>											
+								<th>image</th>
+								<th>Delete</th>				
 							</tr>
 						</thead>
 						<tbody>
@@ -21,7 +24,8 @@ export default function Basket(basket: IBasketItem[]) {
 									<td>{item.name}</td>									
 									<td>{item.price}</td>
 									<td>{item.quantity}</td>
-									<td><img className="esh-basket-thumbnail" src={item.pictureFileName} alt={item.name}/></td>																
+									<td><img className="esh-basket-thumbnail" src={item.pictureFileName} alt={item.name}/></td>	
+									<td><img src={deleteImg} alt="delete" onClick={e => removeItem(item)}></img></td>														
 								</tr>
 							)}
 							<tr>

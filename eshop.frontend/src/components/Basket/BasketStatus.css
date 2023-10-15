@@ -1,0 +1,32 @@
+
+.esh-basketstatus {
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	position: relative;
+	transition: all .35s;
+}
+.esh-basketstatus:hover {
+	transform: scale(1.2) rotate(20deg);
+}
+
+.esh-basketstatus-image {
+	height: auto;
+	width: 1.5rem;
+}
+.esh-basketstatus-badge {
+	background-color: #f66f61;
+	border-radius: 50%;
+	bottom: 0;
+	color: #fff;
+	display: block;
+	font-size: 12px;
+	line-height: 1.2rem;
+	height: 1.2rem;
+	right: 0;
+	position: absolute;
+	text-align: center;
+	transition: all 15s;
+	width: 1.2rem;
+	transform: scale(1.2) rotate(20deg);
+}
