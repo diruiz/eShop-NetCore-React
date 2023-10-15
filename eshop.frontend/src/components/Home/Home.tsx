@@ -1,15 +1,31 @@
+import { useOktaAuth } from '@okta/okta-react';
 import React, { useEffect, useState } from 'react';
 import { ICatalog, ICatalogItem } from '../../models/catalog.model';
 import { getPaginatedCatalog } from '../../services/catalog.service';
 import './Home.css';
 import Card from '../Card/Card';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { IBasketItem } from '../../models/basket.model';
+import { getBasketCache, setBasketCache } from '../../services/basket.service';
 
 export default function Home() {
 	const [currentPage, setCurrentPage] = useState<number>(0);
 	const [limit, setLimit] = useState<number>(8);
 	const [pagesCount, setPagesCount] = useState<number>(0);
 	const [catalog, setCatalog] = useState<ICatalog | undefined>(undefined);
+	const [basket, setBasket] = useState<IBasketItem[]>([]);
+	const { authState, oktaAuth } = useOktaAuth();
+
+	useEffect(() => {
+		if (authState?.isAuthenticated){			
+			getBasketCache().then(cacheBasket => {
+				if(cacheBasket)
+				{
+					setBasket(cacheBasket);
+				}
+			});			
+		}
+	}, [authState, oktaAuth]); // Update if authState changes
 
 	useEffect(() => {
 		const getData = async () => {
@@ -26,7 +42,20 @@ export default function Home() {
 	}
 
 	function addToCart(item: ICatalogItem){
-		console.log(item);		
+		if (!authState?.isAuthenticated){
+			oktaAuth.signInWithRedirect();
+		}
+		const newBasket = [...basket];
+		const existentItemIndex = basket.findIndex(b => b.id == item.id);
+		if(existentItemIndex >= 0)
+		{			
+			newBasket[existentItemIndex].quantity ++;			
+		}
+		else{
+			newBasket.push({...item, quantity:1 });
+		}
+		setBasketCache(newBasket);
+		setBasket(newBasket);		
 	}
   
   return (

@@ -79,7 +79,7 @@ export default function ManageCatalog() {
 			<h1>Type</h1>
 			<Form>
 				<FormGroup>					
-          <Input invalid={typeInputText.invalid}  name="catalogType" id="catalogTypeInpit" placeholder="New Type name" value={typeInputText.value} onChange={e => setTypeInputText({...typeInputText, value: e.target.value})} />
+          <Input invalid={typeInputText.invalid}  name="type" id="typeInput" placeholder="New Type name" value={typeInputText.value} onChange={e => setTypeInputText({...typeInputText, value: e.target.value})} />
           <FormFeedback invalid >The item typefield is required</FormFeedback>					
 				</FormGroup>
 				<Button onClick={handleAddNewItemType}>Submit</Button>
@@ -107,7 +107,19 @@ export default function ManageCatalog() {
 			}
 
 			<h1>Catalog</h1>
+			{
+				(catalogBrand && 	catalogType) && (
+					<Form>
+						<FormGroup>					
+							<Input invalid={typeInputText.invalid}  name="catalogName" id="catalogNameInput" placeholder="New Type name" value={typeInputText.value} onChange={e => setTypeInputText({...typeInputText, value: e.target.value})} />
+							<FormFeedback invalid >The item is required</FormFeedback>					
+					</FormGroup>
+					<Button onClick={handleAddNewItemType}>Submit</Button>
 
+					</Form>
+				) 
+
+			}
 			{
 				catalog && (
 					<table className='table table-striped' aria-labelledby="tabelLabel">
