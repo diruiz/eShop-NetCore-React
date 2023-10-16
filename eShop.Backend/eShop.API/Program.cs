@@ -10,7 +10,10 @@ using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseSerilog();
+builder.Host.UseSerilog((hostContext, services, configuration) =>
+{
+    configuration.ReadFrom.Configuration(hostContext.Configuration);
+});
 
 builder.Configuration.AddEnvironmentVariables();
 var configuration = builder.Configuration;
