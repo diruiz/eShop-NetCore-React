@@ -3,7 +3,9 @@ using eShop.Domain;
 using eShop.Infrastructure;
 using eShop.Persistence.Context;
 using FluentValidation;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Okta.AspNetCore;
 using Serilog;
@@ -39,6 +41,20 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Appli
 builder.Services.AddAutoMapper(typeof(ApplicationLayerEntryPoint).Assembly);
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddInfrastructureDependencyInjectionServices(configuration);
+builder.Services.AddHttpLogging(logging => {
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add(HeaderNames.Accept);
+    logging.RequestHeaders.Add(HeaderNames.ContentType);
+    logging.RequestHeaders.Add(HeaderNames.ContentDisposition);
+    logging.RequestHeaders.Add(HeaderNames.ContentEncoding);
+    logging.RequestHeaders.Add(HeaderNames.ContentLength);
+
+    logging.MediaTypeOptions.AddText("application/json");
+    logging.MediaTypeOptions.AddText("multipart/form-data");
+
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
 
 var corsPolicy = "AllowAll";
 builder.Services.AddCors(options => 
@@ -112,6 +128,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseHttpLogging()
+   .UseSerilogRequestLogging();
+
 
 app.MapControllers();
 
